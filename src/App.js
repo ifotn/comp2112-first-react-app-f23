@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// shared components
+import Header from "./views/shared/Header";
+import Footer from "./views/shared/Footer";
+
+// page components
+import Home from "./views/Home";
+import About from "./views/About";
+
+// dependencies
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* jsx comment style */}
+      <Header />
+      <main>
+        {/* use classes from react-router-dom to set up the url mapping for each page */}
+         <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+         </BrowserRouter>
+      </main>
+      <Footer />
     </div>
   );
 }
