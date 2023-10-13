@@ -1,6 +1,7 @@
 import React from "react";
 
-function Header() {
+// add User prop so we show some details about the user in the navbar
+function Header(User) {
   return (
     <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
       <div className="container-fluid">
@@ -38,6 +39,11 @@ function Header() {
             <li className="nav-item">
               <a className="nav-link" href="/services" id="services">
                 Services
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#" id="profile">
+                <i class="bi bi-person-circle"></i> {User.username}
               </a>
             </li>
           </ul>

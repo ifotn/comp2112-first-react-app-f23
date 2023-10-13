@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       {/* jsx comment style */}
-      <Header />
+      <Header username='rfreeman' />
       <main>
         {/* use classes from react-router-dom to set up the url mapping for each page */}
          <BrowserRouter>
