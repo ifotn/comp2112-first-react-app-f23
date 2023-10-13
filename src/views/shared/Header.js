@@ -43,7 +43,7 @@ function Header(User) {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/#" id="profile">
-                <i class="bi bi-person-circle"></i> {User.username}
+                <i className="bi bi-person-circle"></i> {User.username}
               </a>
             </li>
           </ul>

@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // add User prop to this page; a user should be passed any time this loads
 function Home(User) {
+    // use the Effect Hook to set the page title
+    // the [] optional param means only run this effect once
+    // if we provide [some-value] here, it means run the effect if this value changes
+    // e.g. [user] => the effect hook runs any time the user value changes
+    useEffect(() => {
+        document.title = 'Home';
+        console.log('Home loaded');
+    }, [])
+
     /* set up the useState hook to main a count variable
     count: is our variable tracking the # of button clicks
     setCount: the method used to update the count variable
