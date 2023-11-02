@@ -21,6 +21,7 @@ function Home(User) {
     // increments counter
     const updateCount = () => {
         setCount(count + 1);
+ 
     }
 
     // resets counter to zero

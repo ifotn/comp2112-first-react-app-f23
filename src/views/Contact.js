@@ -8,13 +8,25 @@ function Contact() {
 
     // use State hook to track the current value of the user's message
     const [message, setMessage] = useState('');
+    const [errMessage, setErrMessage] = useState(null);
 
     const handleChange = (event) => {
-        setMessage(event.target.value)
+        setMessage(event.target.value);
+        if (message === '') {
+            setErrMessage('Message is required');
+        }
+        else {
+            setErrMessage(null);
+        }
     }
 
     const showMessageAlert = () => {
-        alert(message);
+        if (message === '') {
+            setErrMessage('Message is required');
+        }
+        else {
+            alert(message);
+        }
     }
 
     return (
@@ -22,6 +34,7 @@ function Contact() {
             <h1>Contact Us</h1>
             <p>tel: 705.728.1968</p>
             <textarea placeholder="Send us a message" onChange={handleChange}></textarea>
+            <div id="errMessage" className="text-danger">{errMessage}</div>
             <div className="form-group">
                 <button className="btn btn-info" onClick={showMessageAlert}>Submit</button>
             </div>
