@@ -8,6 +8,7 @@ function Contact() {
 
     // use State hook to track the current value of the user's message
     const [message, setMessage] = useState('');
+    const [errMessage, setErrMessage] = useState(null);
 
     // create new state var for errorMessage, initialized to empty
     const [errorMessage, setErrorMessage] = useState(null);

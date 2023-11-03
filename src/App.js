@@ -7,6 +7,8 @@ import Home from "./views/Home";
 import About from "./views/About";
 import Contact from "./views/Contact";
 import Services from "./views/Services";
+import Blog from "./views/Blog";
+import Post from "./views/Post";
 
 // dependencies
 import { BrowserRouter, Routes, Route } from "react-router-dom";
