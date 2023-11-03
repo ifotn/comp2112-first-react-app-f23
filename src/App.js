@@ -10,24 +10,37 @@ import Services from "./views/Services";
 
 // dependencies
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createContext, useContext, useState } from "react"; // for sharing state between components
+
+// global Context (like a global or session var container)
+export const CounterContext = createContext();
 
 function App() {
+  // set state variable for a session click count
+  const [sessionCounter, setSessionCounter] = useState(0);
+
+  // public function to increment the session var; available to any child component
+  const handleIncrement = () => setSessionCounter(sessionCounter + 1);  
+
   return (
     <div>
-      {/* jsx comment style */}
-      <Header username='rfreeman' />
-      <main>
-        {/* use classes from react-router-dom to set up the url mapping for each page */}
-         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home username='rfreeman' displayName='Rich Freeman' />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/services" element={<Services />} />
-          </Routes>
-         </BrowserRouter>
-      </main>
-      <Footer />
+      {/* wrap all components in the context so it can be shared among all */}
+      <CounterContext.Provider value={{ sessionCounter, handleIncrement }}>
+        {/* jsx comment style */}
+        <Header username='rfreeman' />
+        <main>
+          {/* use classes from react-router-dom to set up the url mapping for each page */}
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home username='rfreeman' displayName='Rich Freeman' />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/services" element={<Services />} />
+            </Routes>
+          </BrowserRouter>
+        </main>
+        <Footer />
+      </CounterContext.Provider>
     </div>
   );
 }

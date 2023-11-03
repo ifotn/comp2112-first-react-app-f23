@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+// reference global CounterContext from Home so we can set the global state var
+import { CounterContext } from "../App";
 
 // add User prop to this page; a user should be passed any time this loads
 function Home(User) {
+    // reference  counter function in global context
+    const { handleIncrement } = useContext(CounterContext);
+
     // use the Effect Hook to set the page title
     // the [] optional param means only run this effect once
     // if we provide [some-value] here, it means run the effect if this value changes
@@ -21,6 +26,8 @@ function Home(User) {
     // increments counter
     const updateCount = () => {
         setCount(count + 1);
+        // update session var too by calling the function in the App.js context
+        handleIncrement();
     }
 
     // resets counter to zero

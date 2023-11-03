@@ -9,12 +9,27 @@ function Contact() {
     // use State hook to track the current value of the user's message
     const [message, setMessage] = useState('');
 
+    // create new state var for errorMessage, initialized to empty
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const handleChange = (event) => {
         setMessage(event.target.value)
+        // if input has a value, remove any error message displayed
+        if (message === '') {
+            setErrorMessage('Message is required');
+        }
+        else {
+            setErrorMessage(null);
+        }
     }
 
     const showMessageAlert = () => {
-        alert(message);
+        if (message === '') {
+            setErrorMessage('Message is required');
+        }
+        else {
+            alert(message);
+        }       
     }
 
     return (
@@ -22,6 +37,7 @@ function Contact() {
             <h1>Contact Us</h1>
             <p>tel: 705.728.1968</p>
             <textarea placeholder="Send us a message" onChange={handleChange}></textarea>
+            <div id="errorMessage" className="text-danger">{errorMessage}</div>
             <div className="form-group">
                 <button className="btn btn-info" onClick={showMessageAlert}>Submit</button>
             </div>
