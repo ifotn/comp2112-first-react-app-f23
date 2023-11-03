@@ -8,6 +8,7 @@ import About from "./views/About";
 import Contact from "./views/Contact";
 import Services from "./views/Services";
 import Blog from "./views/Blog";
+import Post from "./views/Post";
 
 // dependencies
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -38,6 +39,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/services" element={<Services />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/post/:id" element={<Post />} />
             </Routes>
           </BrowserRouter>
         </main>

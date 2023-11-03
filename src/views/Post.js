@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 function Post() {
-    const [data, setData] = useState([]);
+    const [blogPost, setBlogPost] = useState([]);
+    // read id parameter from url
     const { id } = useParams();
 
+    // run effect when component mounts with id dependency
     useEffect(() => {
         document.title = 'Blog Post';
 
-        console.log(`id: ${id}`);
-        // This code runs when the component is mounted (equivalent to componentDidMount)
-        fetch(`http://localhost:4000/api/posts/${id}`)
-            .then((response) => response.json())
-            .then((data) => setData(data));
+        // fetch the selected blog post from the api using the url param value at the end
+        fetch(`https://blog-demo-d7iq.onrender.com/api/posts/${id}`)
+        .then((response) => response.json())
+        .then((blogPost) => {
+            setBlogPost(blogPost[0])
+            console.log(blogPost)
+        });
     },[id]);
 
     return (
-        <section className="container">
-            <h1>{data.title}</h1>
-            <div>{data.body}</div>
-            <a href="/blog" className="btn btn-info m-3">Back to Blog</a>
-        </section>
-    );
+        <div className="container">
+            <h1>{blogPost.title}</h1>
+            <h5><i className="bi bi-person-circle"></i> {blogPost.username}</h5>
+            <h6>{new Date(blogPost.date).toLocaleDateString()}</h6>
+            <div>{blogPost.body}</div>
+            <a href="/blog" className="btn btn-info m-3">
+                <i className="bi bi-skip-backward-fill"></i> Back to Blog
+            </a>
+        </div>
+    )
 }
 
 export default Post;
