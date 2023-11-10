@@ -1,10 +1,21 @@
 import { useForm } from "react-hook-form";
+import { Editor } from '@tinymce/tinymce-react';
+import { useRef, useState } from 'react';
 
 function CreatePost(User) {
     const { register, handleSubmit, formState:{errors} } = useForm();
+    const editorRef = useRef(null);
+    const [errMessage, setErrMessage] = useState(null);
 
     const onSubmit = async (formData) => {
         try {
+            // make sure body is not empty before posting to api
+            let bodyContent = editorRef.current.getContent();
+            if (bodyContent === '') {
+                setErrMessage('Body is required');
+                return;  // don't do anything else in this try block
+            }
+
             // set the current date and time.  Remove , and . characters from the date string in order to save
             let postDate = new Date().toLocaleString();
             postDate = postDate.replace(',', '');
@@ -17,7 +28,7 @@ function CreatePost(User) {
                 },
                 body: JSON.stringify({
                     title: formData.title,
-                    body: formData.body,
+                    body: editorRef.current.getContent(),  //formData.body,
                     username: User.username,
                     date: postDate
                 })
@@ -46,8 +57,19 @@ function CreatePost(User) {
                 </fieldset>
                 <fieldset className="pb-3">
                     <label htmlFor="body">Body:</label>
-                    <textarea name="body" {...register("body", { required: true })}></textarea>
-                    {errors.body && <span className="text-danger ms-2">Body is required</span>}
+                    <Editor
+                        apiKey='lh6ybanhay0opv7nzvnm0wcom2w9l4v77sxvxofpwqxxsnmn'
+                        onInit={(evt, body) => editorRef.current = body}
+                        init={{
+                            width: 800,
+                            menubar: false,
+                            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+                            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                        }}
+                    />
+                    <span id="errMessage" className="text-danger">{errMessage}</span>
+                    {/* <textarea name="body" {...register("body", { required: true })}></textarea>
+                    {errors.body && <span className="text-danger ms-2">Body is required</span>} */}
                 </fieldset>
                 <button className="btn btn-info offset-4">
                     <i className="bi bi-plus-circle"></i> Save
