@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Parser } from 'html-to-react';
 
 function Post() {
     const [blogPost, setBlogPost] = useState([]);
@@ -25,7 +26,7 @@ function Post() {
             <h1>{blogPost.title}</h1>
             <h5><i className="bi bi-person-circle"></i> {blogPost.username}</h5>
             <h6>{new Date(blogPost.date).toLocaleDateString()}</h6>
-            <div>{blogPost.body}</div>
+            <div>{Parser().parse(blogPost.body)}</div>
             <a href="/blog" className="btn btn-info m-3">
                 <i className="bi bi-skip-backward-fill"></i> Back to Blog
             </a>
