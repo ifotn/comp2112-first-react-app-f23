@@ -41,7 +41,7 @@ function App() {
               <Route path="/services" element={<Services />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/post/:id" element={<Post />} />
-              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/create-post" element={<CreatePost username='rfreeman' />} />
             </Routes>
           </BrowserRouter>
         </main>

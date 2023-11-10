@@ -22,7 +22,7 @@ function Blog() {
             </a>
             <ul className="list-group">
                 {blogPosts.map((post) => (
-                    <li className="list-group-item" key={post.postId}>
+                    <li className="list-group-item" key={post._id}>
                         <h2><i className="bi bi-substack"></i> {post.title}</h2>
                         <div>
                             {Parser().parse((post.body).toString().substring(0,100))} ... 
@@ -33,8 +33,9 @@ function Blog() {
                         <div>
                             Posted: 
                                 <span className="badge text-bg-secondary m-1">
-                                    {new Date(post.date).toLocaleDateString()}
+                                    {new Date(post.date).toLocaleString()}
                                 </span>
+                                by {post.username}
                         </div>
                     </li>
                 ))}
