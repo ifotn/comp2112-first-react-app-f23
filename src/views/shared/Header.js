@@ -47,6 +47,11 @@ function Header(User) {
               </a>
             </li>
             <li className="nav-item">
+              <a className="nav-link" href="/login" id="login">
+                Login
+              </a>
+            </li>
+            <li className="nav-item">
               <a className="nav-link" href="/#" id="profile">
                 <i className="bi bi-person-circle"></i> {User.username}
               </a>
