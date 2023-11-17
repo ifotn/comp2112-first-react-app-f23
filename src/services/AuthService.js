@@ -1,7 +1,7 @@
 const apiUrl = 'https://blog-demo-jwt.onrender.com/api';
 
 // login method => post username/password to api, receive JWT if successful
-const login = async(credentials) => {
+const login = async (credentials) => {
     try {
         // set up Login POST request to server api
         const response = await fetch(`${apiUrl}/auth/login`, {

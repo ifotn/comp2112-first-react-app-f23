@@ -9,17 +9,34 @@ function Blog() {
     // when component "mounts" (aka loads), get external api data using Fetch
     // the [] at the end tells React to only run this effect ONCE when component mounts
     useEffect(() => {
-        try {
-             fetch('https://blog-demo-jwt.onrender.com/api/posts')
-            .then((response) => response.json())
-            .then((blogPosts) => setBlogPosts(blogPosts));
-            console.log(blogPosts);
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://blog-demo-jwt.onrender.com/api/posts', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include' // need to pass jwt from httponly cookie
+                });
+
+                if (!response.ok) {
+                   // console.log(response);                   
+                   // setErrorMessage(response.statusText);
+                    throw new Error('Api Fetch Error');
+                }
+
+                // if no error, grab the blog data from the json response & set with State Hook
+                const blogPosts = await response.json();
+                setBlogPosts(blogPosts);          
+            }
+            catch (error) {
+                console.log(`error: ${error}`);
+                setErrorMessage(error);
+            }
         }
-        catch (error) {
-            console.log(`error: ${error}`);
-            setErrorMessage(error);
-        }
-           
+            
+        // execute the fetch call
+        fetchData();  
     },[]);
 
     if (errorMessage) {
@@ -30,18 +47,18 @@ function Blog() {
         );
     }
     else {
-        return (
+      return (
             <div className="container">
                 <h1>Latest Random Thoughts</h1>
                 <a href="/create-post" className="btn btn-info mb-3">
                     <i className="bi bi-plus-circle"></i> Create New Post
                 </a>
                 <ul className="list-group">
-                    {blogPosts.map((post) => (
+                    {blogPosts && blogPosts.map((post) => (
                         <li className="list-group-item" key={post._id}>
                             <h2><i className="bi bi-substack"></i> {post.title}</h2>
                             <div>
-                                {Parser().parse((post.body).toString().substring(0,100))} ... 
+                                {post.body && Parser().parse((post.body).toString().substring(0,100))} ... 
                                 <a href={`/post/${post._id}`} className="btn btn-info float-end">
                                     <i className="bi bi-book"></i> Read More
                                 </a>
@@ -57,9 +74,8 @@ function Blog() {
                     ))}
                 </ul>
             </div>
-        )
+        ) 
     }
-    
 }
 
 export default Blog;
