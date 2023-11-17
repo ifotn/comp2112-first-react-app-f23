@@ -10,12 +10,13 @@ const login = async(credentials) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(credentials),
-            credentials: 'include'  // automatically pass the cookie on all requests
+            //credentials: 'include'  // automatically pass the cookie on all requests
         });
 
+        console.log(response);
         // check response from fetch call
         if (response.ok) {
-            // token we get back stored in HttpOnly cookie.  visible in browser but not from code
+            // token we get back stored in HttpOnly cookie.  visible in browser but not from code           
             return response.json();
         }
         else {
