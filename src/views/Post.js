@@ -21,17 +21,29 @@ function Post() {
         });
     },[id]);
 
-    return (
-        <div className="container">
-            <h1>{blogPost.title}</h1>
-            <h5><i className="bi bi-person-circle"></i> {blogPost.username}</h5>
-            <h6>{new Date(blogPost.date).toLocaleString()}</h6>
-            <div>{Parser().parse(blogPost.body)}</div>
-            <a href="/blog" className="btn btn-info m-3">
-                <i className="bi bi-skip-backward-fill"></i> Back to Blog
-            </a>
-        </div>
-    )
+    // auth check
+    if (!sessionStorage.getItem('username')) {
+        return (
+            <div className="container">
+                <div className="alert alert-danger mt-3">
+                    User not authenticated.  Please log in.
+                </div>
+            </div>
+        )
+    }
+    else {
+         return (
+            <div className="container">
+                <h1>{blogPost.title}</h1>
+                <h5><i className="bi bi-person-circle"></i> {blogPost.username}</h5>
+                <h6>{new Date(blogPost.date).toLocaleString()}</h6>
+                <div>{Parser().parse(blogPost.body)}</div>
+                <a href="/blog" className="btn btn-info m-3">
+                    <i className="bi bi-skip-backward-fill"></i> Back to Blog
+                </a>
+            </div>
+        )
+    }
 }
 
 export default Post;

@@ -11,7 +11,11 @@ function Login() {
         /*console.log(`Button clicked: ${username} / ${password}`);
         console.log(document.cookie);*/
         try {
-            await login({ username, password })
+            // call api to log user in, if successful, store username in session storage & redirect to blog
+            const response = await login({ username, password })
+
+            sessionStorage.setItem('username', response.user.username);
+            window.location.href = '/blog';
         }
         catch (error) {
             console.log(`Login failure: ${error.message}`);

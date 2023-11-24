@@ -46,37 +46,49 @@ function CreatePost(User) {
         }        
     }
 
-    return (
-        <div className="container">
-            <h1>Create a New Post by {User.username}</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <fieldset className="pb-3">
-                    <label htmlFor="title">Title:</label>
-                    <input name="title" {...register("title", { required: true })} />
-                    {errors.title && <span className="text-danger ms-2">Title is required</span>}
-                </fieldset>
-                <fieldset className="pb-3">
-                    <label htmlFor="body">Body:</label>
-                    <Editor
-                        apiKey='lh6ybanhay0opv7nzvnm0wcom2w9l4v77sxvxofpwqxxsnmn'
-                        onInit={(evt, body) => editorRef.current = body}
-                        init={{
-                            width: 800,
-                            menubar: false,
-                            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
-                            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-                        }}
-                    />
-                    <span id="errMessage" className="text-danger">{errMessage}</span>
-                    {/* <textarea name="body" {...register("body", { required: true })}></textarea>
-                    {errors.body && <span className="text-danger ms-2">Body is required</span>} */}
-                </fieldset>
-                <button className="btn btn-info offset-4">
-                    <i className="bi bi-plus-circle"></i> Save
-                </button>
-            </form>
-        </div>
-    );
+    // auth check
+    if (!sessionStorage.getItem('username')) {
+        return (
+            <div className="container">
+                <div className="alert alert-danger mt-3">
+                    User not authenticated.  Please log in.
+                </div>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="container">
+                <h1>Create a New Post by {User.username}</h1>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <fieldset className="pb-3">
+                        <label htmlFor="title">Title:</label>
+                        <input name="title" {...register("title", { required: true })} />
+                        {errors.title && <span className="text-danger ms-2">Title is required</span>}
+                    </fieldset>
+                    <fieldset className="pb-3">
+                        <label htmlFor="body">Body:</label>
+                        <Editor
+                            apiKey='lh6ybanhay0opv7nzvnm0wcom2w9l4v77sxvxofpwqxxsnmn'
+                            onInit={(evt, body) => editorRef.current = body}
+                            init={{
+                                width: 800,
+                                menubar: false,
+                                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+                                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                            }}
+                        />
+                        <span id="errMessage" className="text-danger">{errMessage}</span>
+                        {/* <textarea name="body" {...register("body", { required: true })}></textarea>
+                        {errors.body && <span className="text-danger ms-2">Body is required</span>} */}
+                    </fieldset>
+                    <button className="btn btn-info offset-4">
+                        <i className="bi bi-plus-circle"></i> Save
+                    </button>
+                </form>
+            </div>
+        );
+    }
 }
 
 export default CreatePost;

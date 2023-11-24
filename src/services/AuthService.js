@@ -10,7 +10,7 @@ const login = async (credentials) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(credentials),
-            //credentials: 'include'  // automatically pass the cookie on all requests
+            credentials: 'include'  // automatically pass the cookie on all requests ->*** REQUIRED FOR COOKIE ***
         });
 
         console.log(response);

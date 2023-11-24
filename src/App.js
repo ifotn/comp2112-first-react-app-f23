@@ -19,6 +19,18 @@ import { createContext, useContext, useState } from "react"; // for sharing stat
 // global Context (like a global or session var container)
 export const CounterContext = createContext();
 
+// get username from session storage if there is one
+// ternary operator: if {condition is true} ? someValue : someOtherValue 
+let username = sessionStorage.getItem('username') ? sessionStorage.getItem('username') : '';
+
+/* above is equivalent to:
+if (sessionStorage.getItem('username) != null) {
+   username = sessionStorage.getItem('username')
+}
+else {
+  username = '';
+} */
+
 function App() {
   // set state variable for a session click count
   const [sessionCounter, setSessionCounter] = useState(0);
@@ -31,18 +43,18 @@ function App() {
       {/* wrap all components in the context so it can be shared among all */}
       <CounterContext.Provider value={{ sessionCounter, handleIncrement }}>
         {/* jsx comment style */}
-        <Header username='rfreeman' />
+        <Header username={username} />
         <main>
           {/* use classes from react-router-dom to set up the url mapping for each page */}
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home username='rfreeman' displayName='Rich Freeman' />} />
+              <Route path="/" element={<Home username={username} displayName='Rich Freeman' />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/services" element={<Services />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/post/:id" element={<Post />} />
-              <Route path="/create-post" element={<CreatePost username='rfreeman' />} />
+              <Route path="/create-post" element={<CreatePost username={username} />} />
               <Route path="/login" element={<Login />} />
             </Routes>
           </BrowserRouter>
