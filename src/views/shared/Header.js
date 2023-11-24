@@ -46,16 +46,21 @@ function Header(User) {
                 Blog
               </a>
             </li>
-            <li className="nav-item">
+            {!User.username && <li className="nav-item">
               <a className="nav-link" href="/login" id="login">
                 Login
               </a>
-            </li>
-            <li className="nav-item">
+            </li>}
+            {User.username && <li className="nav-item">
               <a className="nav-link" href="/#" id="profile">
                 <i className="bi bi-person-circle"></i> {User.username}
               </a>
-            </li>
+            </li>}
+            {User.username && <li className="nav-item">
+              <a className="nav-link" href="/logout" id="logout">
+                Logout
+              </a>
+            </li>}
           </ul>
         </div>
       </div>

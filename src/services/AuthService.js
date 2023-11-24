@@ -29,4 +29,27 @@ const login = async (credentials) => {
     }
 };
 
-export { login };
+// call logout on API to remove HTTP Only Cookie
+const logout = async(credentials) => {
+    try {
+        const response = await fetch(`${apiUrl}/auth/logout`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'  // pass the http only cookie so server api can delete it
+        })
+
+        if (response.ok) {
+            return response.json();
+        }
+        else {
+            throw new Error('Invalid Credentials');
+        }
+    }
+    catch(error) {
+        throw error;
+    }
+}
+
+export { login, logout };

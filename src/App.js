@@ -11,6 +11,7 @@ import Blog from "./views/Blog";
 import Post from "./views/Post";
 import CreatePost from "./views/CreatePost";
 import Login from "./views/Login";
+import Logout from "./views/Logout";
 
 // dependencies
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -56,6 +57,7 @@ function App() {
               <Route path="/post/:id" element={<Post />} />
               <Route path="/create-post" element={<CreatePost username={username} />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
             </Routes>
           </BrowserRouter>
         </main>

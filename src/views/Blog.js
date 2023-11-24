@@ -27,16 +27,22 @@ function Blog() {
 
                 // if no error, grab the blog data from the json response & set with State Hook
                 const blogPosts = await response.json();
-                setBlogPosts(blogPosts);          
+                setBlogPosts(blogPosts);         
             }
             catch (error) {
                 console.log(`error: ${error}`);
                 setErrorMessage(error);
             }
         }
-            
-        // execute the fetch call
-        fetchData();  
+        
+        if (sessionStorage.getItem('username') != null) {
+            // execute the fetch call
+            fetchData();
+        }
+        else {
+            setErrorMessage('User not authenticated.  Please log in.');
+        }
+              
     },[]);
 
     if (errorMessage) {

@@ -39,7 +39,7 @@ function Home(User) {
         <section className="container">
             <h1>Welcome to our First React App, {User.displayName}</h1>
             <p>We're building this for COMP2112.</p>
-            <p>Your username is {User.username}.</p>
+            {User.username && <p>Your username is {User.username}.</p>}
             <div>
                 <h5>Count: <span className="badge bg-secondary">{count}</span></h5>
                 <button className="btn btn-info m-1" onClick={updateCount}>Click Me</button>
